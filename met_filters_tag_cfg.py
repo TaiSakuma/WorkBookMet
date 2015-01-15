@@ -14,8 +14,6 @@ options.outputFile = 'filters_tag.root'
 options.maxEvents = -1
 options.parseArguments()
 
-print options.inputFiles
-
 ##____________________________________________________________________________||
 process.load("FWCore.MessageLogger.MessageLogger_cfi")
 process.load("Configuration.Geometry.GeometryIdeal_cff")
