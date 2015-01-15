@@ -19,6 +19,7 @@ process.load("FWCore.MessageLogger.MessageLogger_cfi")
 process.load("Configuration.Geometry.GeometryIdeal_cff")
 
 process.options   = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
+process.MessageLogger.cerr.FwkReport.reportEvery = 1000
 process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(options.maxEvents))
 
 ##____________________________________________________________________________||
