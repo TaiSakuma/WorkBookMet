@@ -6,12 +6,15 @@ import FWCore.ParameterSet.Config as cms
 process = cms.Process("FILT")
 
 ##____________________________________________________________________________||
-import FWCore.ParameterSet.VarParsing as VarParsing
-options = VarParsing.VarParsing('analysis')
+from FWCore.ParameterSet.VarParsing import VarParsing
+options = VarParsing('analysis')
+options.register('certFile', '', VarParsing.multiplicity.singleton, VarParsing.varType.string, "json file")
 options.inputFiles = 'file:/afs/cern.ch/cms/Tutorials/TWIKI_DATA/MET/MET_Run2012C_AOD_532_numEvent100.root',
 options.outputFile = 'filters_tag.root'
 options.maxEvents = -1
 options.parseArguments()
+
+print options.inputFiles
 
 ##____________________________________________________________________________||
 process.load("FWCore.MessageLogger.MessageLogger_cfi")
@@ -29,6 +32,11 @@ process.source = cms.Source(
     "PoolSource",
     fileNames = cms.untracked.vstring(options.inputFiles)
     )
+
+##____________________________________________________________________________||
+if options.certFile:
+    import FWCore.PythonUtilities.LumiList as LumiList
+    process.source.lumisToProcess = LumiList.LumiList(filename = options.certFile).getVLuminosityBlockRange()
 
 ##____________________________________________________________________________||
 process.load("RecoMET.METFilters.metFilters_cff")
