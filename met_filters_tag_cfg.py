@@ -55,6 +55,7 @@ process.out = cms.OutputModule(
     fileName = cms.untracked.string(options.outputFile),
     outputCommands = cms.untracked.vstring(
         'drop *',
+        'keep recoPFMETs_pfMet__RECO',
         'keep *_*_*_FILT',
         ),
     SelectEvents = cms.untracked.PSet(SelectEvents = cms.vstring('*', '!*'))
